@@ -1,11 +1,10 @@
-provider "aws" {
-  region = "us-west-2"
+provider "google" {
+  project = "my-project-id"
+  region  = "us-central1"
 }
 
-resource "aws_instance" "example" {
-  ami           = "ami-0c55b159cbfafe1f0"
-  instance_type = "t2.micro"
-  tags = {
-    Name = "example-instance"
-  }
+resource "google_storage_bucket" "my-bucket" {
+  name          = "my-bucket"
+  location      = "us-central1"
+  force_destroy = true
 }
