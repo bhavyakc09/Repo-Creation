@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A short description of my project",
   "main": "index.js",
+  "postinstall": "npm run build"
   "scripts": {
     "start": "node index.js",
     "build": "webpack --mode production",
