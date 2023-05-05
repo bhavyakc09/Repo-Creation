@@ -29,6 +29,7 @@ jobs:
         # npm ci step installs the dependencies required for the project using the ci command, which installs packages according to the package-lock.json file.
         # npm run build step runs the build script specified in the package.json file.
         # npm test step runs the test script specified in the package.json file
+      - run: npm install
       - run: npm ci
       - run: npm run build
       - run: npm test
