@@ -1,0 +1,34 @@
+# specify the name of the workflow
+name: Node.js CI
+
+# specifies the events that trigger the workflow. In this case, the workflow is triggered on push events to the main branch and pull requests to the main branch
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# contains one or more jobs that are executed in parallel
+jobs:
+  # defined with a runs-on field that specifies the operating system to use for the job. In this case, the job runs on the latest version of Ubuntu
+  build:
+    runs-on: ubuntu-latest
+
+    # used to specify a matrix of values for the node-version field. This allows the job to be run with multiple versions of Node.js
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    # contains a list of steps that are executed in sequence, checkout used to check out the repository code, setup-node used to set up the specified version of Node.js
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+        # npm ci step installs the dependencies required for the project using the ci command, which installs packages according to the package-lock.json file.
+        # npm run build step runs the build script specified in the package.json file.
+        # npm test step runs the test script specified in the package.json file
+      - run: npm ci
+      - run: npm run build
+      - run: npm test
